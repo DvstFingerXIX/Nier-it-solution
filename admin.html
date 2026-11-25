@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin | NIER IT Solutions</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap">
+<style>
+:root{--amber:#FDB900;--orange:#FF9100;--slate:#2F3A48;--ink-d:#151B24;--bg:#F6F1E4;--card:#fff;--ink:#1B2430;--mut:#5b6573;--line:#e6dcc0;--navy:#0F2A5C;--ok:#1f8a4c;--bad:#c0392b;font-family:'Poppins',system-ui,sans-serif}
+*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.55}
+h1,h2,h3{font-family:'Sora','Poppins',sans-serif;margin:0}
+button,input,select,textarea{font:inherit}
+.btn{border:0;border-radius:999px;padding:11px 20px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,var(--amber),var(--orange));color:#151B24}
+.btn.sec{background:#fff;box-shadow:inset 0 0 0 2px var(--line);color:var(--ink)}.btn.dng{background:#fff;color:var(--bad);box-shadow:inset 0 0 0 2px #efc3bd}.btn.sm{padding:7px 14px;font-size:13px}.btn:disabled{opacity:.6;cursor:wait}
+input,select,textarea{width:100%;padding:11px 13px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus,.btn:focus-visible,.tab:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+label{display:grid;gap:6px;font-weight:600;font-size:13px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+header{background:var(--ink-d);color:#fff;position:sticky;top:0;z-index:5}
+.bar{display:flex;align-items:center;gap:14px;min-height:64px;flex-wrap:wrap;padding:8px 0}
+.bar b{font:800 18px 'Sora',sans-serif;color:var(--amber)}.bar a{color:#cfd6e0;font-size:14px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.tab{background:transparent;border:0;color:#cfd6e0;padding:9px 16px;border-radius:999px;cursor:pointer;font-weight:500}.tab[aria-selected=true]{background:var(--slate);color:var(--amber)}
+.badge{display:inline-block;min-width:20px;padding:0 6px;margin-left:6px;border-radius:999px;background:var(--orange);color:#151B24;font-size:12px;font-weight:700;text-align:center}.badge:empty{display:none}
+main{padding:26px 0 60px}
+.login{max-width:380px;margin:12vh auto;background:var(--card);border-radius:20px;padding:30px;display:grid;gap:16px;box-shadow:0 10px 40px rgba(0,0,0,.1)}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}@media(max-width:720px){.g2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}.toolbar input{max-width:260px}.toolbar select{max-width:170px}
+.q.new{border-left:5px solid var(--orange)}.q .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.when{color:var(--mut);font-size:13px}.meta{color:var(--mut);font-size:14px;margin:4px 0}
+.q p{margin:8px 0;white-space:pre-wrap}.ctc a{color:var(--navy);font-weight:600}.row{display:grid;grid-template-columns:150px 1fr auto auto;gap:8px;align-items:start;margin-top:12px}@media(max-width:720px){.row{grid-template-columns:1fr 1fr}.row textarea{grid-column:1/-1}}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;background:#e8f5ec;color:var(--ok)}.pill.p{background:#fff0d6;color:#a35b00}
+.stars{color:#E58600;letter-spacing:2px}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}.thumbs img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;background:#eee}
+.preview{max-width:200px;border-radius:10px;margin-top:6px}
+.msg{font-size:14px;margin:0}.msg.err{color:var(--bad)}.msg.ok{color:var(--ok)}
+.empty{text-align:center;color:var(--mut);padding:30px}
+</style></head><body>
+<div id="login" class="login" hidden>
+ <h1>Admin login</h1><p class="msg" style="color:var(--mut)">NIER IT Solutions website</p>
+ <form id="lf" class="grid"><label>Password<input id="pw" type="password" autocomplete="current-password" required></label><button class="btn" type="submit">Log in</button><p id="lm" class="msg err" role="alert"></p></form>
+</div>
+<div id="app" hidden>
+<header><div class="wrap bar"><b>NIER Admin</b><a href="/" target="_blank" rel="noopener">View site</a>
+ <div class="tabs" role="tablist"><button class="tab" role="tab" data-t="quotes" aria-selected="true">Quote requests<span class="badge" id="bq"></span></button><button class="tab" role="tab" data-t="testi" aria-selected="false">Testimonials<span class="badge" id="bt"></span></button><button class="tab" role="tab" data-t="gal" aria-selected="false">Gallery photos</button><button class="tab" id="out" type="button">Log out</button></div></div></header>
+<main class="wrap">
+<section id="s-quotes">
+ <div class="toolbar"><select id="qs" aria-label="Filter by status"><option value="">All statuses</option><option value="new">New</option><option value="contacted">Contacted</option><option value="quoted">Quoted</option><option value="won">Won</option><option value="closed">Closed</option></select><input id="qq" type="search" placeholder="Search name, contact, details" aria-label="Search"><a class="btn sec sm" href="/api/admin/quotes.csv" style="text-decoration:none;margin-left:auto">Export CSV</a></div>
+ <div id="ql" class="grid"></div>
+</section>
+<section id="s-testi" hidden>
+ <form id="tf" class="card grid" style="margin-bottom:18px"><h2 id="tft" style="font-size:20px">Add a testimonial</h2><input type="hidden" id="tid">
+  <div class="grid g2"><label>Client name<input id="tn" required maxlength="80"></label><label>Role or company (optional)<input id="tr" maxlength="100"></label></div>
+  <label>Message<textarea id="tm" rows="4" required maxlength="800"></textarea></label>
+  <div class="grid g2"><label>Rating<select id="tg"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></label><label>Photo (optional)<input id="tp" type="file" accept="image/*"></label></div>
+  <label style="display:flex;gap:8px;align-items:center;font-weight:500"><input id="tu" type="checkbox" checked style="width:auto"> Show on the website</label>
+  <label id="trl" style="display:none;font-weight:500;flex-direction:row;align-items:center;gap:8px"><input id="trm" type="checkbox" style="width:auto"> Remove current photo</label>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="submit" id="tb">Save testimonial</button><button class="btn sec" type="button" id="tc" hidden>Cancel edit</button></div><p id="tmsg" class="msg" role="status"></p></form>
+ <div id="tl" class="grid"></div>
+</section>
+<section id="s-gal" hidden>
+ <form id="gf" class="card grid" style="margin-bottom:18px"><h2 style="font-size:20px">Add a photo to the Gallery</h2>
+  <label>Photo<input id="gp" type="file" accept="image/*" required></label><img id="gv" class="preview" alt="" hidden>
+  <div class="grid g2"><label>Caption<input id="gc" maxlength="160" placeholder="e.g. Epson L3250 ink tank printer"></label><label>Category<select id="gk"><option>Computers</option><option>Printers</option><option>Cameras and security</option><option>Accessories and parts</option><option>Phones</option><option selected>Company</option></select></label></div>
+  <button class="btn" type="submit" id="gb">Upload photo</button><p id="gmsg" class="msg" role="status"></p></form>
+ <p class="msg" style="color:var(--mut);margin-bottom:12px">Photos you add here appear first in the website Gallery. The original 20 photos are part of the website files.</p>
+ <div id="gl" class="thumbs"></div>
+</section>
+</main></div>
+<script>
+const $=id=>document.getElementById(id);
+const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function api(p,o={}){o.credentials='same-origin';o.headers=Object.assign({'X-Admin':'1'},o.headers||{});const r=await fetch('/api/admin/'+p,o);const t=await r.text();let j={};try{j=JSON.parse(t)}catch(e){}
+ if(r.status===401&&p!=='login'){show(false);throw new Error('Please log in again.')}if(!r.ok)throw new Error(j.error||'Something went wrong.');return j}
+const jp=(m,b)=>({method:m,headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});
+function show(on){$('login').hidden=on;$('app').hidden=!on}
+const when=t=>new Date(t*1000).toLocaleString('en-PH',{dateStyle:'medium',timeStyle:'short'});
+function link(c){c=esc(c);if(/@/.test(c))return '<a href="mailto:'+c+'">'+c+'</a>';const d=c.replace(/[^\d+]/g,'');return d.length>=7?'<a href="tel:'+d+'">'+c+'</a>':c}
+async function counts(){const m=await api('me');$('bq').textContent=m.newQuotes||'';$('bt').textContent=m.pendingTestimonials||''}
+/* quotes */
+async function loadQ(){const l=await api('quotes?status='+encodeURIComponent($('qs').value)+'&q='+encodeURIComponent($('qq').value));
+ $('ql').innerHTML=l.length?l.map(q=>`<article class="card q ${q.status}" data-id="${q.id}"><div class="top"><b>${esc(q.name)}${q.company?' <span style="font-weight:400">('+esc(q.company)+')</span>':''}</b><span class="when">${when(q.created_at)}</span></div>
+ <div class="meta">${esc([q.request_type,q.category,q.quantity&&'Qty '+q.quantity,q.needed_by&&'Needed by '+q.needed_by].filter(Boolean).join(' | '))}</div><p>${esc(q.details)||'<i>No details</i>'}</p><div class="ctc">${link(q.contact)}</div>
+ <div class="row"><select class="qst" aria-label="Status">${['new','contacted','quoted','won','closed'].map(s=>`<option value="${s}"${s===q.status?' selected':''}>${s[0].toUpperCase()+s.slice(1)}</option>`).join('')}</select><textarea class="qn" rows="2" placeholder="Private notes">${esc(q.notes)}</textarea><button class="btn sm qsv" type="button">Save</button><button class="btn dng sm qdl" type="button">Delete</button></div></article>`).join(''):'<div class="empty card">No quote requests yet.</div>'}
+$('ql').onclick=async e=>{const c=e.target.closest('.q');if(!c)return;const id=c.dataset.id;try{if(e.target.classList.contains('qsv')){await api('quotes/'+id,jp('PATCH',{status:c.querySelector('.qst').value,notes:c.querySelector('.qn').value}));e.target.textContent='Saved';setTimeout(()=>e.target.textContent='Save',1200);counts();c.classList.toggle('new',c.querySelector('.qst').value==='new')}
+ if(e.target.classList.contains('qdl')&&confirm('Delete this quote request?')){await api('quotes/'+id,{method:'DELETE'});loadQ();counts()}}catch(x){alert(x.message)}};
+$('qs').onchange=loadQ;let qt;$('qq').oninput=()=>{clearTimeout(qt);qt=setTimeout(loadQ,300)};
+/* images */
+function shrink(file,max,q){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const s=Math.min(1,max/Math.max(im.width,im.height)),w=Math.round(im.width*s),h=Math.round(im.height*s),c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(im,0,0,w,h);
+ c.toBlob(b=>{URL.revokeObjectURL(u);b?res({blob:b,w,h}):rej(new Error('Could not process this image.'))},'image/webp',q)};im.onerror=()=>rej(new Error('This file is not a valid image.'));im.src=u})}
+/* testimonials */
+const stars=n=>'★'.repeat(n)+'☆'.repeat(5-n);
+async function loadT(){const l=await api('testimonials');
+ $('tl').innerHTML=l.length?l.map(t=>`<article class="card" data-id="${t.id}"><div style="display:flex;gap:14px;align-items:flex-start">${t.photo?`<img src="/img/${t.photo}" alt="" style="width:56px;height:56px;border-radius:50%;object-fit:cover">`:''}<div style="flex:1"><div class="stars" aria-label="${t.rating} out of 5">${stars(t.rating)}</div><p style="margin:6px 0">${esc(t.message)}</p><b>${esc(t.name)}</b>${t.role?' <span class="when">'+esc(t.role)+'</span>':''}</div><div><span class="pill ${t.published?'':'p'}">${t.published?'Published':(t.source==='client'?'Needs review':'Hidden')}</span></div></div>
+ <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn sm tpb" type="button" data-p="${t.published?0:1}">${t.published?'Hide':'Publish'}</button><button class="btn sec sm ted" type="button">Edit</button><button class="btn dng sm tdl" type="button">Delete</button></div></article>`).join(''):'<div class="empty card">No testimonials yet. Add one above, or share your Testimonials page so clients can submit one.</div>';window._t=l}
+function resetT(){$('tf').reset();$('tid').value='';$('tft').textContent='Add a testimonial';$('tc').hidden=true;$('trl').style.display='none';$('tu').checked=true}
+$('tc').onclick=resetT;
+$('tl').onclick=async e=>{const c=e.target.closest('article');if(!c)return;const id=c.dataset.id;const t=window._t.find(x=>x.id==id);try{
+ if(e.target.classList.contains('tpb')){await api('testimonials/'+id,jp('PATCH',{published:+e.target.dataset.p}));loadT();counts()}
+ if(e.target.classList.contains('tdl')&&confirm('Delete this testimonial?')){await api('testimonials/'+id,{method:'DELETE'});loadT();counts()}
+ if(e.target.classList.contains('ted')){$('tid').value=id;$('tn').value=t.name;$('tr').value=t.role||'';$('tm').value=t.message;$('tg').value=t.rating;$('tu').checked=!!t.published;$('tft').textContent='Edit testimonial';$('tc').hidden=false;$('trl').style.display=t.photo?'flex':'none';$('trm').checked=false;scrollTo({top:0,behavior:'smooth'})}}catch(x){alert(x.message)}};
+$('tf').onsubmit=async e=>{e.preventDefault();const b=$('tb');b.disabled=true;$('tmsg').className='msg';$('tmsg').textContent='Saving...';try{const f=new FormData();f.set('name',$('tn').value);f.set('role',$('tr').value);f.set('message',$('tm').value);f.set('rating',$('tg').value);f.set('published',$('tu').checked?'1':'0');
+ if($('tp').files[0]){const s=await shrink($('tp').files[0],400,.85);f.set('photo',s.blob,'p.webp')}if($('trm').checked)f.set('remove_photo','1');
+ const id=$('tid').value;await api(id?'testimonials/'+id:'testimonials',{method:id?'PUT':'POST',body:f});resetT();$('tmsg').className='msg ok';$('tmsg').textContent='Saved.';loadT();counts()}catch(x){$('tmsg').className='msg err';$('tmsg').textContent=x.message}b.disabled=false};
+/* gallery */
+async function loadG(){const l=await api('gallery');$('gl').innerHTML=l.length?l.map(g=>`<article class="card" data-id="${g.id}" style="padding:10px"><img src="/img/${g.image}" alt="${esc(g.caption)}"><p style="margin:8px 0 2px;font-size:14px">${esc(g.caption)||'<i>No caption</i>'}</p><span class="when">${esc(g.category)}</span> <span class="pill ${g.published?'':'p'}">${g.published?'Shown':'Hidden'}</span>
+ <div style="display:flex;gap:6px;margin-top:8px"><button class="btn sec sm gpb" type="button" data-p="${g.published?0:1}">${g.published?'Hide':'Show'}</button><button class="btn dng sm gdl" type="button">Delete</button></div></article>`).join(''):'<div class="empty card" style="grid-column:1/-1">No photos added yet.</div>'}
+$('gl').onclick=async e=>{const c=e.target.closest('article');if(!c)return;const id=c.dataset.id;try{if(e.target.classList.contains('gpb')){await api('gallery/'+id,jp('PATCH',{published:+e.target.dataset.p}));loadG()}
+ if(e.target.classList.contains('gdl')&&confirm('Delete this photo?')){await api('gallery/'+id,{method:'DELETE'});loadG()}}catch(x){alert(x.message)}};
+$('gp').onchange=()=>{const f=$('gp').files[0];if(f){$('gv').src=URL.createObjectURL(f);$('gv').hidden=false}};
+$('gf').onsubmit=async e=>{e.preventDefault();const b=$('gb');b.disabled=true;$('gmsg').className='msg';$('gmsg').textContent='Uploading...';try{const s=await shrink($('gp').files[0],1400,.82);const f=new FormData();f.set('file',s.blob,'p.webp');f.set('width',s.w);f.set('height',s.h);f.set('caption',$('gc').value);f.set('category',$('gk').value);f.set('published','1');
+ await api('gallery',{method:'POST',body:f});$('gf').reset();$('gv').hidden=true;$('gmsg').className='msg ok';$('gmsg').textContent='Uploaded. It now appears in the website Gallery.';loadG()}catch(x){$('gmsg').className='msg err';$('gmsg').textContent=x.message}b.disabled=false};
+/* tabs, login */
+document.querySelectorAll('.tab[data-t]').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab[data-t]').forEach(x=>x.setAttribute('aria-selected',x===b));['quotes','testi','gal'].forEach(k=>$('s-'+k).hidden=k!==b.dataset.t);({quotes:loadQ,testi:loadT,gal:loadG})[b.dataset.t]().catch(x=>alert(x.message))});
+$('out').onclick=async()=>{try{await api('logout',{method:'POST'})}catch(e){}show(false)};
+$('lf').onsubmit=async e=>{e.preventDefault();$('lm').textContent='';try{await api('login',jp('POST',{password:$('pw').value}));$('pw').value='';boot()}catch(x){$('lm').textContent=x.message}};
+async function boot(){try{await counts();show(true);loadQ();loadT();loadG()}catch(e){show(false)}}
+boot();
+</script></body></html>
